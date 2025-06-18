@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { useGlobalState } from "../Context/StateContext";
-import { Co2Sharp } from "@mui/icons-material";
 
 export default function useUtils() {
   // global state
@@ -9,8 +8,7 @@ export default function useUtils() {
     setMuted,
     setDuration,
     setReviewVideo,
-    setCameraWarning,
-    videoOff,
+
     setOpen,
     setVideoOff,
     setUpdateUI,
