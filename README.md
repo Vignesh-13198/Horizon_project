@@ -35,12 +35,17 @@ A simple web app to record **audio** and **video** using your browser. Built wit
 <!-- project run commends// -->
 
 2.**run project**
+
+```bash
 npm install
 npm run dev
+```
 
 3.**Open in browser**
 
+```bash
 Visit: http://localhost:5173
+```
 
 ## Expanding the ESLint configuration
 
