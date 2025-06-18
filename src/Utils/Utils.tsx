@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { useGlobalState } from "../Context/StateContext";
 
 export default function useUtils() {
@@ -26,7 +26,6 @@ export default function useUtils() {
   const audioRecorderRef = useRef<MediaRecorder | null>(null);
   // video recorder start function
   const startRecording = async () => {
-    console.log("start recoding");
     if (videoOff) {
       setCameraWarning(true);
       return;

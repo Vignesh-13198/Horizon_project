@@ -1,13 +1,16 @@
 import { lazy, Suspense } from "react";
 import "./App.css";
 import horizon from "./assets/images/horizon.png";
-const MediaRecorderApp = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(import("./Page/MediaRecorder/MediaRecorders"));
-    }, 3000);
-  });
-});
+const MediaRecorderApp = lazy(
+  () =>
+    new Promise<{ default: React.ComponentType<any> }>((resolve) => {
+      setTimeout(() => {
+        import("./Page/MediaRecorder/MediaRecorders").then((module) => {
+          resolve({ default: module.default });
+        });
+      }, 3000);
+    })
+);
 function App() {
   return (
     <Suspense

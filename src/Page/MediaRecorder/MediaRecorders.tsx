@@ -1,15 +1,7 @@
 // Enhanced GoogleMeetRecorder.tsx with added improvements
-import React, { useRef, useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./mediaRecorder.scss";
-import {
-  Switch,
-  Box,
-  IconButton,
-  Tooltip,
-  Button,
-  Typography,
-  Snackbar,
-} from "@mui/material";
+import { Box, IconButton, Tooltip, Typography, Snackbar } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamIcon from "@mui/icons-material/Videocam";
