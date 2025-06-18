@@ -89,6 +89,41 @@ const MediaRecorders = () => {
             }
           >
             {videoOff ? (
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                playsInline
+                className="recoderstyle"
+              />
+            ) : audioRecording ? (
+              <div
+                style={{
+                  color: "red",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <MicIcon
+                  style={{ color: "#e0f2f1", height: "20%", width: "20%" }}
+                />
+              </div>
+            ) : (
+              <div
+                style={{
+                  color: "red",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <VideocamOffIcon
+                  style={{ color: "#e0f2f1", height: "20%", width: "20%" }}
+                />
+              </div>
+            )}
+            {/* {videoOff ? (
               <div
                 style={{
                   color: "red",
@@ -122,7 +157,7 @@ const MediaRecorders = () => {
                 playsInline
                 className="recoderstyle"
               />
-            )}
+            )} */}
           </div>
           {/* previous audio and video container */}
           {recordedFiles.current.length > 0 && (
@@ -216,7 +251,7 @@ const MediaRecorders = () => {
                   </IconButton>
                 </Tooltip>
               </Box>
-
+              {/* camera toggle button*/}
               <Box
                 sx={{
                   display: "flex",
@@ -224,7 +259,6 @@ const MediaRecorders = () => {
                   gap: 1,
                 }}
               >
-                {/* camera toggle button*/}
                 <Tooltip
                   title={videoOff ? "Turn on camera" : "Turn off camera"}
                 >
@@ -234,17 +268,17 @@ const MediaRecorders = () => {
                       width: 56,
                       height: 56,
                       borderRadius: "10px",
-                      backgroundColor: videoOff ? "#ff4d4f" : "#e0f7fa",
-                      color: videoOff ? "#fff" : "#00796b",
-                      boxShadow: videoOff
+                      backgroundColor: !videoOff ? "#ff4d4f" : "#e0f7fa",
+                      color: !videoOff ? "#fff" : "#00796b",
+                      boxShadow: !videoOff
                         ? "0 3px 6px rgba(255, 77, 79, 0.4)"
                         : "0 3px 6px rgba(0, 121, 107, 0.2)",
                       "&:hover": {
-                        backgroundColor: videoOff ? "#f5222d" : "#b2dfdb",
+                        backgroundColor: !videoOff ? "#f5222d" : "#b2dfdb",
                       },
                     }}
                   >
-                    {videoOff ? <VideocamOffIcon /> : <VideocamIcon />}
+                    {!videoOff ? <VideocamOffIcon /> : <VideocamIcon />}
                   </IconButton>
                 </Tooltip>
               </Box>

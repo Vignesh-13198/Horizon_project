@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useGlobalState } from "../Context/StateContext";
+import { Co2Sharp } from "@mui/icons-material";
 
 export default function useUtils() {
   // global state
@@ -26,10 +27,7 @@ export default function useUtils() {
   const audioRecorderRef = useRef<MediaRecorder | null>(null);
   // video recorder start function
   const startRecording = async () => {
-    if (videoOff) {
-      setCameraWarning(true);
-      return;
-    }
+    setVideoOff(true);
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -37,20 +35,16 @@ export default function useUtils() {
         audio: true,
       });
       streamRef.current = stream;
-
       mediaRecorderRef.current = new MediaRecorder(stream);
       recordedChunks.current = [];
-
       mediaRecorderRef.current.ondataavailable = (e) => {
         if (e.data.size > 0) recordedChunks.current.push(e.data);
       };
-
       mediaRecorderRef.current.onstop = async () => {
         const blob = new Blob(recordedChunks.current, { type: "video/webm" });
         const fileName = `recording_${Date.now()}`;
         const blobUrl = URL.createObjectURL(blob);
         const thumbnail = await getVideoThumbnail(blobUrl);
-
         recordedFiles.current.push({
           name: fileName,
           size: blob.size,
@@ -59,12 +53,10 @@ export default function useUtils() {
           thumbnail,
           blob,
         });
-
         stream.getTracks().forEach((track) => track.stop());
         clearInterval(timerRef.current!);
         setUpdateUI((prev: any) => !prev);
       };
-
       mediaRecorderRef.current.start();
       setRecording(true);
       setDuration(0);
@@ -143,13 +135,11 @@ export default function useUtils() {
       console.warn("Stream not available. Start recording first.");
       return;
     }
-
     const videoTracks = stream.getVideoTracks();
     if (!videoTracks || videoTracks.length === 0) {
       console.warn("No video track found.");
       return;
     }
-
     const track = videoTracks[0];
     track.enabled = !track.enabled;
     console.log(
@@ -174,6 +164,7 @@ export default function useUtils() {
   };
   //start audio recorder function
   const startAudioRecording = async () => {
+    setDuration(0);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream);
@@ -206,9 +197,19 @@ export default function useUtils() {
   };
   // stop audio recorder function
   const stopAudioRecording = () => {
-    audioRecorderRef.current?.stop();
+    if (audioRecorderRef.current) {
+      audioRecorderRef.current.stop(); // Triggers the onstop handler
+    }
+
+    // Stop all tracks in the MediaStream to fully release the microphone
+    const stream = audioRecorderRef.current?.stream;
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
+
     setAudioRecording(false);
   };
+
   // modal open function
   const handleModalOpen = (data: any) => {
     setOpen(true);
