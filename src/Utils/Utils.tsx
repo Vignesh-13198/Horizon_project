@@ -101,10 +101,24 @@ export default function useUtils() {
   };
   // video recorder stop function
   const stopRecording = () => {
-    mediaRecorderRef.current?.stop();
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
+      mediaRecorderRef.current.stop();
+    }
+
+    // Explicitly stop all media tracks (camera + mic)
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
+
     setRecording(false);
-    setVideoOff(false);
+    setVideoOff(false); // Turn videoOff to true to reflect that camera is off
   };
+
   // togglemute function
   const toggleMute = () => {
     const stream = streamRef.current;
