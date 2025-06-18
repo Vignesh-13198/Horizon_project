@@ -15,12 +15,12 @@ A simple web app to record **audio** and **video** using your browser. Built wit
 
 ## 🚀 Features
 
-- 🎤 Record Audio using `MediaRecorder` API
-- 📹 Record Video with live camera preview
-- ⏱ Show recording duration
-- ⏯ Pause/Resume functionality
-- 🔁 Preview after recording
-- 📥 Download as `.webm` (or `.mp3` if supported)
+- Record Audio using `MediaRecorder` API
+- ecord Video with live camera preview
+- Show recording duration
+- Pause/Resume functionality
+- Preview after recording
+- Download as `.webm` (or `.mp3` if supported)
 
 ---
 
