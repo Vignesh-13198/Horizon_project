@@ -47,6 +47,12 @@ npm run dev
 Visit: http://localhost:5173
 ```
 
+4.**deploy deom**
+
+```bash
+https://685270b8af1b0f07f47d134c--stellar-capybara-7f66b5.netlify.app/
+```
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
